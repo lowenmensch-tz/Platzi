@@ -20,17 +20,20 @@ class Game:
         self.message = [
             "Bienvenido: Juego El ahorcado", 
             "\n\nIngrese la dificultad del juego:\n\n[1] Fácil\n[2] Intermedio\n[3] Difícil\nPresione cualquier tecla para salir.\n\n",
-            "\nVidas: {}\nComplete la palabra oculta:\n\n\t\t{}\t\t\n\nTiene {} letras ocultas", 
+            "\nVidas: {}\nDificultad: {}\nPistas disponibles: {}\nComplete la palabra oculta:\n\n\t\t{}\t\t\n\nTiene {} letras ocultas", 
             "\n\nIngrese una letra: ",
             "\nPresione ENTER\n\n", 
             "Felicidades, ha adivinado la palabra: {}", 
             "*", 
             "♥", 
-            "Ha perdido"
+            "Ha perdido", 
+            "\nIngrese [ * ] para ver una pista"
         ]
 
         self.answer = []
+        self.cantity_clues = []
         self.data = json.load( open("data.json", "r") ).values()
+        self.difficulty = {"1":"Fácil", "2":"Intermedio", "3":"Difícil"}
 
     
     """
@@ -52,15 +55,15 @@ class Game:
     """
         Pistas sobre la palabra a encontrar
     """
-    def clues(self, word: str) -> None: 
+    def clues(self, word: str) -> str: 
         
         count_word = len(
             [
-                x for x in word if re.search(r"[AEIOUÁÉÍÓÚÜ]")
+                x for x in word if re.search(r"[AEIOUÁÉÍÓÚÜ]", word)
             ]
         )
 
-        print("La palabra tiene {} vocales.".format(count_word))
+        return "La palabra tiene {} vocales.".format(count_word)
 
     
     """
@@ -88,7 +91,8 @@ class Game:
 
 
     """
-        Mensaje de bienvenida o mensaje de celebración
+        Imprime un mensaje de Bienvenida
+        o un mensaje de éxito
     """
     def welcome_message(self, message: str)-> str: 
         
@@ -97,7 +101,7 @@ class Game:
 
 
     """
-        Sistema de puntuaciones
+        Limpiar la pantalla de la consola
     """
     def cls(self, message) -> None:
         
@@ -111,10 +115,11 @@ class Game:
     def input_game(self): 
 
         try: 
-
+            #Bienvenida
             difficulty = int(input( self.welcome_message(self.message[0]) + self.message[1]))
             hangman_word = (self.process_data(difficulty)['word']).upper()
             hidden_word = "".join(["_" for _ in hangman_word])
+            self.cantity_clues.append( self.clues(hangman_word) )
             lives = 4
 
             while(True): 
@@ -126,20 +131,40 @@ class Game:
                     self.cls( self.welcome_message( self.message[5].format( hangman_word ))  )
                     break
 
-                self.cls( self.message[2].format( self.message[7]*lives,  hidden_word, hidden_letter) )
+                self.cls( 
+                            self.message[2].format( 
+                                    self.message[7]*lives,  
+                                    self.difficulty[str(difficulty)], 
+                                    len(self.cantity_clues),
+                                    hidden_word, hidden_letter
+                                ) + 
+                                self.message[9]
+                        )
+                
                 self.answer.append( (input( self.message[3] )).upper().strip() )
 
-                #Letra repetida
-                if len([x for x, word in enumerate( self.answer ) if word == self.answer[-1]]) != 1:
-                    self.cls("Está letra ya fue ingresada: {}".format( self.answer.pop() ))
-                    print(input(self.message[4]))
+                if re.search(r"[^A-ZÑÁÉÍÓÚÜa-záéíóúñ*]", self.answer[-1]): 
+                    continue
+                #Pistas
+                elif self.answer[-1] == '*' and self.cantity_clues: 
+                    self.cls( self.cantity_clues.pop() )
+                    input(self.message[4])
+                
+                elif self.answer[-1] == '*' and len( self.cantity_clues ) == 0: 
+                    self.cls("No tiene pistas disponibles")
+                    input(self.message[4])
                 else: 
-                    dict_answer_index = self.compare(self.answer[-1], hangman_word)
-
-                    if dict_answer_index: 
-                        hidden_word = self.process_answer(dict_answer_index, hidden_word)
+                    #Letra repetida
+                    if len([x for x, word in enumerate( self.answer ) if word == self.answer[-1]]) != 1:
+                        self.cls("Está letra ya fue ingresada: {}".format( self.answer.pop() ))
+                        print(input(self.message[4]))
                     else: 
-                        lives -= 1    
+                        dict_answer_index = self.compare(self.answer[-1], hangman_word)
+
+                        if dict_answer_index: 
+                            hidden_word = self.process_answer(dict_answer_index, hidden_word)
+                        else: 
+                            lives -= 1    
 
                 #Perdió
                 if lives == 0: 

@@ -10,5 +10,13 @@
     "9": {"word":"Ventrílocuo", "difficulty": 2},
     "10": {"word":"Desoxirribonucleico", "difficulty":3},
     "11": {"word":"Procrastinar", "difficulty":2},
-    "12": {"word":"Payaso", "difficulty":1}
+    "12": {"word":"Payaso", "difficulty":1}, 
+    "13":{"word":"Berserk", "difficulty": 2},
+    "14":{"word":"Esplenomegalia", "difficulty": 3},
+    "15":{"word":"Quuincalla", "difficulty": 2},
+    "16":{"word":"Vesania", "difficulty": 2},
+    "17":{"word":"TurmaSummum", "difficulty": 3},
+    "18":{"word":"Alcuza", "difficulty": 2},
+    "19":{"word":"Infibulación", "difficulty": 3},
+    "20":{"word":"Jayan", "difficulty": 2}
 }
