@@ -59,7 +59,7 @@ class Game:
         
         count_word = len(
             [
-                x for x in word if re.search(r"[AEIOUÁÉÍÓÚÜ]", word)
+                x for x in word if re.search(r"[AEIOUÁÉÍÓÚÜ]", x)
             ]
         )
 
