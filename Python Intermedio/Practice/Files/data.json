@@ -1,0 +1,72 @@
+{
+    "1": {
+        "name": "Facundo",
+        "age": 72,
+        "organization": "Platzi",
+        "position": "Technical Coach",
+        "language": "python"
+    },
+    "2":{
+        "name": "Luisana",
+        "age": 33,
+        "organization": "Globant",
+        "position": "UX Designer",
+        "language": "javascript"
+    },
+    "3": {
+        "name": "Héctor",
+        "age": 19,
+        "organization": "Platzi",
+        "position": "Associate",
+        "language": "ruby"
+    },
+    "4": {
+        "name": "Gabriel",
+        "age": 20,
+        "organization": "Platzi",
+        "position": "Associate",
+        "language": "javascript"
+    },
+    "5": {
+        "name": "Isabella",
+        "age": 30,
+        "organization": "Platzi",
+        "position": "QA Manager",
+        "language": "java"
+    },
+    "6": {
+        "name": "Karo",
+        "age": 23,
+        "organization": "Everis",
+        "position": "Backend Developer",
+        "language": "python"
+    },
+    "7": {
+        "name": "Ariel",
+        "age": 32,
+        "organization": "Rappi",
+        "position": "Support",
+        "language": ""
+    },
+    "8": {
+        "name": "Juan",
+        "age": 17,
+        "organization": "",
+        "position": "Student",
+        "language": "go"
+    },
+    "9": {
+        "name": "Pablo",
+        "age": 32,
+        "organization": "Master",
+        "position": "Human Resources Manager",
+        "language": "python"
+    },
+    "10": {
+        "name": "Lorena",
+        "age": 56,
+        "organization": "Python Organization",
+        "position": "Language Maker",
+        "language": "python"
+    }
+}
