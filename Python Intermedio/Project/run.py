@@ -7,6 +7,7 @@
 import json
 import re
 import os
+from draw import Draw
 from random import randint
 
 """
@@ -121,6 +122,7 @@ class Game:
             hidden_word = "".join(["_" for _ in hangman_word])
             self.cantity_clues.append( self.clues(hangman_word) )
             lives = 4
+            draw = (Draw())
 
             while(True): 
                 
@@ -131,7 +133,9 @@ class Game:
                     self.cls( self.welcome_message( self.message[5].format( hangman_word ))  )
                     break
 
+                #Ingreso de respuesta por parte del usuario
                 self.cls( 
+                            draw.process(lives) +  
                             self.message[2].format( 
                                     self.message[7]*lives,  
                                     self.difficulty[str(difficulty)], 
@@ -168,7 +172,10 @@ class Game:
 
                 #Perdió
                 if lives == 0: 
-                    self.cls( self.welcome_message(self.message[8]) )
+                    self.cls( 
+                            draw.process(lives) +  
+                            self.welcome_message(self.message[8]) 
+                        )
                     break
 
         except ValueError as ve: 
