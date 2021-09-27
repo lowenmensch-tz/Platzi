@@ -4,7 +4,7 @@
   "description": "Proyecto del curso Profesional de Javascript de la JS",
   "main": "index.js",
   "scripts": {
-    "start":"live-server",
+    "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,6 +13,7 @@
   "author": "Kenneth Leonel Cruz <kenneth.cruz@unah.hn>",
   "license": "MIT",
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.4.2"
   }
 }
